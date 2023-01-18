@@ -1,0 +1,19 @@
+{
+    "name": "emerald/container",
+    "description": "Container to webapp in php",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Emerald\\Container\\": "src/",
+            "Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Fernando Linhares Silvestre"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+}

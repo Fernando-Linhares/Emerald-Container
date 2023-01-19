@@ -10,4 +10,18 @@ class ApplicationWithDependencies
     {
         $this->app = $app;
     }
+
+    public function implemented()
+    {
+        return $this->app->implemented();
+    }
+
+    public function notImplemented(Application $app)
+    {
+        return !$app->implemented();
+    }
+
+    public function countNum(int $num){
+        return $num;
+    }
 }

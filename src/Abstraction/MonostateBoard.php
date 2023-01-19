@@ -2,17 +2,17 @@
 
 namespace Emerald\Container\Abstraction;
 
-use Emerald\Container\Contracts\IMonospace;
+use Emerald\Container\Contracts\IMonostate;
 
-class Monospace implements IMonospace
+class MonostateBoard implements IMonostate
 {
-    public static array $bind = [];
+    public static array $board = [];
 
     public function contains($needle): bool
     {
-        if(!empty(self::$bind)){
+        if(!empty(self::$board)){
 
-            $keys = array_keys(self::$bind);
+            $keys = array_keys(self::$board);
 
             return in_array($needle, $keys);
         }
@@ -22,11 +22,11 @@ class Monospace implements IMonospace
 
     public function __set($name, $value)
     {
-        self::$bind[$name] = $value;
+        self::$board[$name] = $value;
     }
 
     public function __get($name)
     {
-        return self::$bind[$name];
+        return self::$board[$name];
     }
 }

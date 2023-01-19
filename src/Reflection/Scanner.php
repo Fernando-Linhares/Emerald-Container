@@ -1,7 +1,11 @@
 <?php 
 
 namespace Emerald\Container\Reflection;
+
 use ReflectionClass;
+use Emerald\Container\Abstraction\InterfaceConcret;
+use Emerald\Container\Abstraction\MonostateBind;
+use ReflectionMethod;
 
 class Scanner
 {
@@ -15,9 +19,19 @@ class Scanner
 
         $parameters = $reflection->getConstructor()?->getParameters();
 
+        $monostate = new MonostateBind();
+
         if(!empty($parameters)){
-            return array_map(function($parameter){
-                return  $parameter->getType()->getName();
+            return array_map(function($parameter) use ($monostate): string
+            {
+                $type = $parameter->getType()->getName();
+
+                // if($monostate->contains($type)){
+                //     return $monostate->$type;
+                // }
+                
+                return $type;
+
             }, $parameters);
         }
 
@@ -43,7 +57,7 @@ class Scanner
      */
     public function getInstanceByType(): mixed
     {
-        return $this->instance;
+        return new InterfaceConcret($this->instance);
     }
 
     /**
@@ -62,7 +76,7 @@ class Scanner
 
                 if(empty($listNamespaces))
                     return $reflection->newInstance();
-                
+                    
                 $staticInstance = clone $this;
 
                 $listObjects = $staticInstance->applyRefl($listNamespaces);

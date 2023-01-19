@@ -19,6 +19,9 @@ class Recover extends Scanner implements IRecover
         return $this->getInstanceByType();
     }
 
+    /**
+     * @return void
+     */
     public function load(): void
     {
         $this->loadInstance();

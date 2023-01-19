@@ -22,7 +22,9 @@ class ContainerTest extends TestCase
 
         $instance = $container->get(Application::class);
         
-        $this->assertTrue($instance->implemented());
+        $result = $instance->implemented;
+        
+        $this->assertTrue($result);
     }
 
     /**
@@ -34,7 +36,7 @@ class ContainerTest extends TestCase
         
         $instance = $container->get(ApplicationWithDependencies::class);
 
-        $this->assertTrue($instance->app->implemented());
+        $this->assertTrue($instance->implemented);
     }
 
     /**
@@ -43,12 +45,12 @@ class ContainerTest extends TestCase
     public function isAbleLoadClassWithMultiClassDependencies()
     {
         $container = new Container();
-        
+
         $instance = $container->get(ApplicationWithMultiDependencies::class);
 
-        $this->assertTrue($instance->app->implemented());
+        $this->assertTrue($instance->anotherAppImplemented);
 
-        $this->assertTrue($instance->anotherApp->app->implemented());
+        $this->assertTrue($instance->appImplemented);
     }
 
     /**
@@ -62,6 +64,31 @@ class ContainerTest extends TestCase
 
         $instance = $container->get(ApplicationInterface::class);
 
-        $this->assertTrue($instance->implemented());
+        $this->assertTrue($instance->implemented);
+    }
+
+    /**
+     * @test
+     */
+    public function injectionOnMethod()
+    {
+        $container = new Container();
+
+        $instance = $container->get(ApplicationWithDependencies::class);
+
+        $this->assertFalse($instance->notImplemented);
+    }
+
+
+    /**
+     * @test
+     */
+    public function injectionOnMethodWithNativeParams()
+    {
+        $container = new Container();
+
+        $instance = $container->get(ApplicationWithDependencies::class);
+
+        $this->assertEquals(1, $instance->countNum(1));
     }
 }

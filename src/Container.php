@@ -4,6 +4,8 @@ namespace Emerald\Container;
 
 use Emerald\Container\Contracts\IContainer;
 use Emerald\Container\Abstraction\BaseContainer;
+use Emerald\Container\Abstraction\MonostateBind;
+use Emerald\Container\Exceptions\NotFoundException;
 
 class Container extends BaseContainer implements IContainer
 {
@@ -24,6 +26,11 @@ class Container extends BaseContainer implements IContainer
      */
     public function get($id)
     {
+        $monostate = new MonostateBind;
+
+        if(!class_exists($id) && !$monostate->contains($id))
+            throw new NotFoundException($id);
+
         $instance = $this->identify($id);
 
         $instance->load();
@@ -43,5 +50,7 @@ class Container extends BaseContainer implements IContainer
      * @return bool
      */
     public function has($id)
-    {}
+    {
+        return class_exists($id);
+    }
 }

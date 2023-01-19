@@ -14,4 +14,14 @@ class ApplicationWithMultiDependencies
 
         $this->anotherApp = $anotherApp;
     }
+
+    public function anotherAppImplemented()
+    {
+        return $this->anotherApp->implemented();
+    }
+
+    public function appImplemented()
+    {
+        return $this->app->implemented();
+    }
 }

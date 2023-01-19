@@ -2,12 +2,12 @@
 
 namespace Emerald\Container\Abstraction;
 
-use Emerald\Container\Contracts\{ IRecover, IMonospace, IBaseContainer };
+use Emerald\Container\Contracts\{ IRecover, IMonostate, IBaseContainer };
 
 abstract class BaseContainer implements IBaseContainer
 {
     protected function __construct(
-        protected IMonospace $monospace = new Monospace
+        protected IMonostate $monospace = new MonostateBind
     ){}
 
     public function identify(string $namespace): IRecover
@@ -19,7 +19,14 @@ abstract class BaseContainer implements IBaseContainer
         return new Recover($namespace);
     }
 
-    public function register($abstract, $concret)
+    /**
+     * Register Interfaces
+     * 
+     * @param string $abstract
+     * @param string $concret
+     * @return void
+     */
+    public function register(string $abstract, string $concret): void
     {
         $this->monospace->$abstract = $concret;
     }

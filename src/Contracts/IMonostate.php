@@ -2,7 +2,7 @@
 
 namespace Emerald\Container\Contracts;
 
-interface IMonospace
+interface IMonostate
 {
     public function contains($needle): bool;
 }

@@ -79,7 +79,6 @@ class ContainerTest extends TestCase
         $this->assertFalse($instance->notImplemented);
     }
 
-
     /**
      * @test
      */

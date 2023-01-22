@@ -9,7 +9,7 @@
         }
     },
     
-     "minimum-stability": "stable"
+    "minimum-stability": "stable",
     "authors": [
         {
             "name": "Fernando Linhares Silvestre"
